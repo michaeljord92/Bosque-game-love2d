@@ -16,17 +16,11 @@ local function get_quads(image, quads_x, quads_y)
     return quads
 end
 
-local tiles = {}
-tiles.ground = {}
-tiles.ground.image = love.graphics.newImage('assets/images/tiles/TileCraftGroundSet.png') -- 144x144px, grade 9x9, blocos de 16x16px
-tiles.ground.quads = get_quads(tiles.ground.image, 9, 9)
+local sprite = {}
+sprite.scoreboard = love.graphics.newImage('assets/images/sprites/grey_button15.png')
 
+sprite.player = {}
+sprite.player.image = love.graphics.newImage('assets/images/sprites/warrior_m.png') -- 96x144px, grade 3x4, blocos de 32x36px
+sprite.player.quads = get_quads(sprite.player.image, 3, 4)
 
-tiles.tree = {}
-tiles.tree.image = love.graphics.newImage('assets/images/tiles/trees18px.png') -- 18x108px, grade 1x3, blocos de 18x36px
-tiles.tree.quads = get_quads(tiles.tree.image, 1, 3)
-
-
-
-
-return tiles
+return sprite

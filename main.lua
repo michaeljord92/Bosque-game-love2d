@@ -1,15 +1,17 @@
--- Programa: Aula 5.5 - tilemaps, tilesets e animação
+-- Programa: Aula 5.9 - tilemaps, tilesets e animação
 -- Autor: Michael Jordan S Chagas
 -- Curso: Ciência da Computação - UFMT-CUA
 -- Disclina: Design e Programação de Games (Opt)
 -- Docente: Maxwell Silva Carmo
 -- Data: 2021-08-06
--- Update: 2021-08-06
+-- Update: 2021-08-07
 -- 
--- Este programa simula uma animação de jogo.
+-- Este programa simula um jogo RPG.
 -------------------------------------------------------
 local Display = require('display')
-local Tilemap = require('tilemap')
+local States = require('states')
+local Keypressed = require('keypressed')
+local World = require('world')
 
 
 function love.load()
@@ -24,11 +26,22 @@ function love.load()
 end
 
 function love.update(dt)
+    if States[World.state] then
+        States[World.state].update(dt) 
+    end
 
     fps = love.timer.getFPS()
 end
 
 function love.draw()
-    Tilemap:draw()
+    if States[World.state] then
+        States[World.state].draw() 
+    end 
     -- love.graphics.print('FPS: ' .. fps, 10, 12)
+end
+
+function love.keypressed(key)
+    if Keypressed[key] then
+        Keypressed[key]()
+    end
 end

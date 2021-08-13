@@ -43,7 +43,7 @@ tilemap.tree = {}
 tilemap.tree.map = {
     {{3,1},    0,    0,    0,},
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{2,1},    0,},
-    {{3,1},    0,    0,{3,1},    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{2,1},{1,1},    0,    0,    0,    0,    0,    0,{3,1},},
+    {{1,1},    0,    0,{3,1},    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{2,1},{1,1},    0,    0,    0,    0,    0,    0,{3,1},},
     {    0,    0,    0,    0,    0,{3,1}},
     {    0,    0,    0,    0,},
     {{3,1},    0,    0,    0,    0,    0,    0,    0,},
@@ -51,9 +51,9 @@ tilemap.tree.map = {
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{3,1},    0,    0,    0,    0,    0,{1,1},},
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,},
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{2,1}},
-    {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{3,1}},
+    {    0,    0,{2,1},    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{3,1}},
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{1,1}},
-    {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,},
+    {{1,1},    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{3,1},    0,    0,    0,    0,    0,    0,    0,    0,},
 
 }
 tilemap.tree.draw = function (self)
@@ -106,13 +106,16 @@ tilemap.trail.draw = function (self)
         for index_x, column in ipairs(row) do
             if row[index_x] ~= 0 then
                 local quad = Tiles.ground.quads[row[index_x][1]][row[index_x][2]]
-                love.graphics.draw(Tiles.ground.image,quad, 16 * index_x * 2 - 16 * 2, 16 * index_y * 2 - 16 * 2, 0, 2,2)    
+                love.graphics.draw(Tiles.ground.image,quad, 16 * index_x * 2 - 16 * 2, 16 * index_y * 2 - 16 * 2, 0, 2,2)        
             end
         end
     end
 end
 
 tilemap.water = {}
+tilemap.water.rotation = math.pi
+tilemap.water.timerLimit = 1
+tilemap.water.timer = 2
 tilemap.water.map = {
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{2,4},{2,5},{2,5},{2,6},},
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{1,4},{1,5},{5,5},{2,5},{2,5},{2,6},},
@@ -125,18 +128,31 @@ tilemap.water.map = {
     {    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,{2,4},{2,5},{2,5},{2,5},{2,5},{2,5},{2,6},},
     {    0,{1,4},{1,5},{1,5},{1,6},    0,    0,{1,4},{1,5},{1,5},{5,5},{4,4},{3,5},{3,5},{3,5},{3,5},{3,6},},
     {{1,5},{5,5},{2,5},{2,5},{2,6},    0,    0,{2,4},{2,5},{2,5},{2,5},{2,6},},
-    {{2,5},{2,5},{2,5},{2,5},{2,6},    0,    0,{3,4},{3,5},{3,5},{3,5},{3,6},},
-    {{2,5},{2,5},{2,5},{2,5},{2,6},},
+    {{2,5},{4,4},{3,5},{3,5},{3,6},    0,    0,{3,4},{3,5},{3,5},{3,5},{3,6},},
+    {{2,5},{5,4},{1,5},{1,5},{1,6},},
     {{3,5},{4,5},{2,5},{4,4},{3,6},},
-    {    0,{3,4},{3,5},{3,6},    0,},
+    {    0,{3,4},{3,5},{3,6},},
 }
+tilemap.water.update = function (self, dt)
+    -- print(self.timer)
+    self.timer = self.timer - dt
+    if self.timer <= 0 then
+        self.rotation = self.rotation + math.pi
+
+        self.timer = self.timerLimit
+    end
+end
 tilemap.water.draw = function (self)
     love.graphics.setDefaultFilter('nearest', 'nearest')
     for index_y, row in ipairs(self.map) do
         for index_x, column in ipairs(row) do
             if row[index_x] ~= 0 then
                 local quad = Tiles.ground.quads[row[index_x][1]][row[index_x][2]]
-                love.graphics.draw(Tiles.ground.image,quad, 16 * index_x * 2 - 16 * 2, 16 * index_y * 2 - 16 * 2, 0, 2,2)    
+                if row[index_x][1] == 2 and row[index_x][2] == 5 then
+                    love.graphics.draw(Tiles.ground.image,quad, 16 * index_x * 2 - 16 * 2 + 16, 16 * index_y * 2 - 16 * 2 + 16, self.rotation, 2,2,8,8)    
+                else
+                    love.graphics.draw(Tiles.ground.image,quad, 16 * index_x * 2 - 16 * 2, 16 * index_y * 2 - 16 * 2, 0, 2,2)    
+                end
             end
         end
     end
@@ -172,6 +188,9 @@ tilemap.slurry.draw = function (self)
     end
 end
 
+tilemap.update = function (self,dt)
+    self.water:update(dt)
+end
 tilemap.draw = function (self)
     self.grass:draw()
     self.water:draw()

@@ -2,7 +2,7 @@ WIDTH = 854
 HEIGHT = 480
 
 local display = {}
-display.title = "Aula 5.9 - tilemaps, tilesets e animação"
+display.title = "Aula 5.9 - tilemaps, tilesets e animacao"
 -- display.icon = "assets/images/icon.png"
 display.resizable = true
 display.width, display.height = WIDTH, HEIGHT
