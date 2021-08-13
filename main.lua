@@ -4,9 +4,15 @@
 -- Disclina: Design e Programação de Games (Opt)
 -- Docente: Maxwell Silva Carmo
 -- Data: 2021-08-06
--- Update: 2021-08-07
+-- Update: 2021-08-13
 -- 
--- Este programa simula um jogo RPG.
+-- Este programa simula um jogo RPG  de caminhar 
+-- por um bosque evitando contato com os inimigos.
+-- Os comandos e controles do jogador são:
+--      - mover para cima:      'w'
+--      - mover para baixo:     's'
+--      - mover para esquerda:  'a'
+--      - mover para direita:   'd'
 -------------------------------------------------------
 local Display = require('display')
 local States = require('states')
