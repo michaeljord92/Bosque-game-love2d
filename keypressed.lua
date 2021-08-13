@@ -12,11 +12,16 @@ local key_map = {
             World.state = "play"
         
         -- Reinicia o jogo
-        elseif World.state == "failed" then
+        elseif World.state == "failed" or World.state == "win" then
             World.state = "start"
         
         -- Inicia o jogo
-        elseif  World.state == "start" then            
+        elseif  World.state == "start" then      
+            for key, _ in pairs(Entities) do
+                if Entities[key].init then
+                    Entities[key]:init()
+                end
+            end 
             World.state = "play"
         end
 

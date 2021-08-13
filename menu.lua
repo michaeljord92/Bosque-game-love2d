@@ -32,7 +32,7 @@ menu.pause = {
 
 menu.start = {
     text = "GAME",
-    text2 = "Pressione SPACE para jogar",
+    text2 = "Pressione SPACE para jogar\n ou ESC para sair",
     draw = function (self)
         -- love.graphics.line(Display.width/2, 0, Display.width/2, Display.height)
         -- love.graphics.line(0, Display.height/2, Display.width, Display.height/2)
@@ -56,7 +56,7 @@ menu.start = {
 
 menu.failed = {
     text = "failed",
-    text2 = "Pressione SPACE para jogar novamente",
+    text2 = "Pressione SPACE para jogar novamente\n ou ESC para sair",
     draw = function ()
         -- love.graphics.line(Display.width/2, 0, Display.width/2, Display.height)
         -- love.graphics.line(0, Display.height/2, Display.width, Display.height/2)
@@ -80,7 +80,7 @@ menu.failed = {
 
 menu.win = {
     text = "win",
-    text2 = "",
+    text2 = "Pressione SPACE para jogar novamente\n ou ESC para sair",
     draw = function ()
         -- love.graphics.line(Display.width/2, 0, Display.width/2, Display.height)
         -- love.graphics.line(0, Display.height/2, Display.width, Display.height/2)

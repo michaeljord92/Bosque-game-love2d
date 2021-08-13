@@ -23,4 +23,9 @@ sprite.player = {}
 sprite.player.image = love.graphics.newImage('assets/images/sprites/warrior_m.png') -- 96x144px, grade 3x4, blocos de 32x36px
 sprite.player.quads = get_quads(sprite.player.image, 3, 4)
 
+sprite.ninja = {}
+sprite.ninja.image = love.graphics.newImage('assets/images/sprites/ninja_m.png') -- 96x144px, grade 3x4, blocos de 32x36px
+sprite.ninja.quads = get_quads(sprite.ninja.image, 3, 4)
+
+
 return sprite

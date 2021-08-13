@@ -6,8 +6,8 @@ world.state = "start"
 world.point = 0
 
 world.collides = function (entity1, entity2)
-    if math.sqrt((entity1.x - entity2.x)^2 + (entity1.y - entity2.y)^2 ) 
-    <= (entity1.radius + entity2.radius) then
+    if math.abs(math.modf(entity1.x) - math.modf(entity2.x)) < 1
+    and math.abs( math.modf(entity1.y) - math.modf(entity2.y)) < 1 then
         return true
     end
     return false

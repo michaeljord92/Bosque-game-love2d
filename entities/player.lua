@@ -1,5 +1,4 @@
 local Sprite = require('sprite')
-local World = require('world')
 local Tilemap = require('tilemap')
 
 
@@ -12,14 +11,14 @@ local Tilemap = require('tilemap')
 ---@return table table # O [player] novo.
 return function (x, y, sprite)
     local entity = {}
-    entity.x = x or 26
-    entity.y = y or 3
+    entity.x = x or 2
+    entity.y = y or 1
     entity.sprite = sprite or Sprite.player
     entity.quad = {3,2}
-    entity.speed = 1 * 2
+    entity.speed = 1 * 5
     entity.rotation = math.pi * 0.5
     entity.radius = 19
-    entity.status = "player"
+    entity.status = "play"
     entity.timerLimit = 0.2
     entity.timer = 0.2
 
@@ -74,8 +73,6 @@ return function (x, y, sprite)
 
         
         
-        print("x = "..x.." "..self.x.."; y = "..y.." "..self.y)
-        
         self.rotation = math.pi * 1.5
     end
     entity.down = function (self,dt)
@@ -92,7 +89,6 @@ return function (x, y, sprite)
         for _,_ in pairs(map) do
             map_hy = map_hy + 1
         end
-        print(map_hy)
         if map[y+1] ~= nil and self.y + self.speed * dt < map_hy then
             if map[y + 1][x] ~= 0 and map[y + 1][x] ~= nil then
                 self.y = self.y + self.speed * dt
@@ -101,7 +97,6 @@ return function (x, y, sprite)
                 end
             end
         end
-        print("x = "..x.." "..self.x.."; y = "..y.." "..self.y)
         
         self.rotation = math.pi * 0.5
     end
@@ -128,7 +123,6 @@ return function (x, y, sprite)
             end
         end
 
-        print("x = "..x.." "..self.x.."; y = "..y.." "..self.y)
         
         
         
@@ -158,7 +152,6 @@ return function (x, y, sprite)
                 self.x = self.x - self.speed * dt
             end
         end
-        print("x = "..x.." "..self.x.."; y = "..y.." "..self.y)
 
         self.rotation = math.pi * 0
     end
@@ -224,7 +217,7 @@ return function (x, y, sprite)
             ,0 -- rotação
             -- ,0.8 ,0.8    -- escala
         )    
-        love.graphics.circle('line', 32 * self.x -16, 32 * self.y -16, self.radius)
+        -- love.graphics.circle('line', 32 * self.x -16, 32 * self.y -16, self.radius)
         love.graphics.reset()
     end
 
